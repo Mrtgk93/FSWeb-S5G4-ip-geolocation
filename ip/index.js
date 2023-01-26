@@ -1,31 +1,30 @@
 //axios import buraya gelecek
+import axios from "axios";
 
 var benimIP;
-
 
 // ------------ değiştirmeyin --------------
 // licensed to Ergineer 2022
 require("babel-core/register");
 require("babel-polyfill");
-async function ipAdresimiAl(){
-	await axios({
-		method: 'get',
-		url: 'https://apis.ergineer.com/ipadresim',
-	})
-	.then(function (response) {
-		return response.data
-	})
-	.then(function (a) {
-		benimIP=a
-	});
-}				
+async function ipAdresimiAl() {
+  await axios({
+    method: "get",
+    url: "https://apis.ergineer.com/ipadresim",
+  })
+    .then(function (response) {
+      return response.data;
+    })
+    .then(function (a) {
+      benimIP = a;
+    });
+}
 // ------------ değiştirmeyin --------------
-
 
 /*
 	ADIM 1: axios kullanarak, aşağıdaki URL'ye GET sorgusu atacağız
     (tag içindeki yere kendi ipnizi yazarak URL'yi oluşturun):
-    https://apis.ergineer.com/ipgeoapi/<ipniz>
+    https://apis.ergineer.com/ipgeoapi/<212.125.8.90>
 	
 	NOT: Bilgisayarın IP adresini öğrenmek için: https://apis.ergineer.com/ipadresim 
 	ADIM 5'e gelene kadar fonksiyonunuzu test etmek için ip nizi URL'ye manuel olarak ekleyebilirsiniz.
@@ -67,6 +66,49 @@ async function ipAdresimiAl(){
 	Örnek dinamik URL kullanımı: var url = "https://apis.ergineer.com/ipgeoapi/"+benimIP; 
 */
 
-
-
 //kodlar buraya gelecek
+axios.get("https://example.com/data", {
+  params: {
+    ip: "212.125.8.90",
+  },
+});
+
+const divEkle = document.createElement("div");
+divEkle.setAttribute("class", "card");
+
+const imgekle = document.createElement("img");
+imgekle.setAttribute("src", "{ülke bayrağı url}");
+divEkle.appendChild(imgekle);
+
+const divEkle2 = document.createElement("div");
+divEkle2.setAttribute("class", "card-info");
+
+const h3ekle = document.createElement("h3");
+h3ekle.setAttribute("class", "ip");
+h3ekle.textContent = "{ip adresi}";
+divEkle2.appendChild(h3ekle);
+
+const pEkle = document.createElement("p");
+pEkle.classList.add("ulke");
+pEkle.textContent = "{ülke bilgisi (ülke kodu)}";
+divEkle2.appendChild(pEkle);
+
+const pEkle2 = document.createElement("p");
+pEkle2.textContent = "Enlem: {enlem} Boylam: {boylam}";
+divEkle2.appendChild(pEkle2);
+
+const pEkle3 = document.createElement("p");
+pEkle3.textContent = "Şehir: {şehir}";
+divEkle2.appendChild(pEkle3);
+
+const pEkle4 = document.createElement("p");
+pEkle4.textContent = "Saat dilimi: {saat dilimi}";
+divEkle2.appendChild(pEkle4);
+
+const pEkle5 = document.createElement("p");
+pEkle5.textContent = "Para birimi: {para birimi}";
+divEkle2.appendChild(pEkle5);
+
+const pEkle6 = document.createElement("p");
+pEkle6.textContent = "ISP: {isp}";
+divEkle2.appendChild(pEkle6);
