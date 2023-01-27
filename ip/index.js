@@ -41,15 +41,15 @@ async function ipAdresimiAl() {
 	
 	<div class="card">
 	<img src={ülke bayrağı url} />
-	<div class="card-info">
-		<h3 class="ip">{ip adresi}</h3>
-		<p class="ulke">{ülke bilgisi (ülke kodu)}</p>
-		<p>Enlem: {enlem} Boylam: {boylam}</p>
-		<p>Şehir: {şehir}</p>
-		<p>Saat dilimi: {saat dilimi}</p>
-		<p>Para birimi: {para birimi}</p>
-		<p>ISP: {isp}</p>
-	</div>
+		<div class="card-info">
+			<h3 class="ip">{ip adresi}</h3>
+			<p class="ulke">{ülke bilgisi (ülke kodu)}</p>
+			<p>Enlem: {enlem} Boylam: {boylam}</p>
+			<p>Şehir: {şehir}</p>
+			<p>Saat dilimi: {saat dilimi}</p>
+			<p>Para birimi: {para birimi}</p>
+			<p>ISP: {isp}</p>
+		</div>
     </div>
 */
 
@@ -66,49 +66,100 @@ async function ipAdresimiAl() {
 	Örnek dinamik URL kullanımı: var url = "https://apis.ergineer.com/ipgeoapi/"+benimIP; 
 */
 
+const dummyData = {
+  sorgu: "212.125.8.90",
+  durum: "OK",
+  kıta: "Asia",
+  ülke: "Turkey",
+  ülkeKodu: "TR",
+  ülkebayrağı: "https://apis.ergineer.com/ulkebayraklari/TR",
+  bölge: "34",
+  bölgeAdı: "Istanbul",
+  şehir: "Istanbul",
+  zip: "34010",
+  enlem: 41.02470000000000283080225926823914051055908203125,
+  boylam: 28.925200000000000244426701101474463939666748046875,
+  saatdilimi: "Europe/Istanbul",
+  parabirimi: "TRY",
+  isp: "TurkNet Iletisim Hizmetleri",
+  organizasyon: "TurkNet Iletisim Hizmetleri A.S.",
+  as: "AS12735 TurkNet Iletisim Hizmetleri A.S.",
+};
 //kodlar buraya gelecek
-axios.get("https://example.com/data", {
-  params: {
-    ip: "212.125.8.90",
-  },
-});
 
-const divEkle = document.createElement("div");
-divEkle.setAttribute("class", "card");
+let cards = document.querySelector(".cards");
 
-const imgekle = document.createElement("img");
-imgekle.setAttribute("src", "{ülke bayrağı url}");
-divEkle.appendChild(imgekle);
+const cardYapici = (item) => {
+  const {
+    ülke,
+    parabirimi,
+    saatdilimi,
+    isp,
+    şehir,
+    enlem,
+    boylam,
+    sorgu,
+    ülkeKodu,
+    ülkebayrağı,
+  } = item;
 
-const divEkle2 = document.createElement("div");
-divEkle2.setAttribute("class", "card-info");
+  const divEkle = document.createElement("div");
+  divEkle.setAttribute("class", "card");
 
-const h3ekle = document.createElement("h3");
-h3ekle.setAttribute("class", "ip");
-h3ekle.textContent = "{ip adresi}";
-divEkle2.appendChild(h3ekle);
+  const imgekle = document.createElement("img");
+  imgekle.setAttribute("src", ülkebayrağı);
+  divEkle.appendChild(imgekle);
 
-const pEkle = document.createElement("p");
-pEkle.classList.add("ulke");
-pEkle.textContent = "{ülke bilgisi (ülke kodu)}";
-divEkle2.appendChild(pEkle);
+  const divEkle2 = document.createElement("div");
+  divEkle2.setAttribute("class", "card-info");
+  divEkle.appendChild(divEkle2);
 
-const pEkle2 = document.createElement("p");
-pEkle2.textContent = "Enlem: {enlem} Boylam: {boylam}";
-divEkle2.appendChild(pEkle2);
+  const h3ekle = document.createElement("h3");
+  h3ekle.setAttribute("class", "ip");
+  h3ekle.textContent = sorgu;
+  divEkle2.appendChild(h3ekle);
 
-const pEkle3 = document.createElement("p");
-pEkle3.textContent = "Şehir: {şehir}";
-divEkle2.appendChild(pEkle3);
+  const pEkle = document.createElement("p");
+  pEkle.classList.add("ulke");
+  pEkle.textContent = `${ülke} (${ülkeKodu})`;
+  divEkle2.appendChild(pEkle);
 
-const pEkle4 = document.createElement("p");
-pEkle4.textContent = "Saat dilimi: {saat dilimi}";
-divEkle2.appendChild(pEkle4);
+  const pEkle2 = document.createElement("p");
+  pEkle2.textContent = `Enlem: ${enlem} Boylam: ${boylam}`;
+  divEkle2.appendChild(pEkle2);
 
-const pEkle5 = document.createElement("p");
-pEkle5.textContent = "Para birimi: {para birimi}";
-divEkle2.appendChild(pEkle5);
+  const pEkle3 = document.createElement("p");
+  pEkle3.textContent = `Şehir: ${şehir}`;
+  divEkle2.appendChild(pEkle3);
 
-const pEkle6 = document.createElement("p");
-pEkle6.textContent = "ISP: {isp}";
-divEkle2.appendChild(pEkle6);
+  const pEkle4 = document.createElement("p");
+  pEkle4.textContent = `Saat dilimi: ${saatdilimi}`;
+  divEkle2.appendChild(pEkle4);
+
+  const pEkle5 = document.createElement("p");
+  pEkle5.textContent = `Para birimi: ${parabirimi}`;
+  divEkle2.appendChild(pEkle5);
+
+  const pEkle6 = document.createElement("p");
+  pEkle6.textContent = `ISP: ${isp}`;
+  divEkle2.appendChild(pEkle6);
+
+  return divEkle;
+};
+/* cards.appendChild(cardYapici(dummyData)); */
+
+const connection = async function () {
+  await ipAdresimiAl();
+  await axios({
+    method: "get",
+    url: "https://apis.ergineer.com/ipgeoapi/" + benimIP,
+  })
+    .then(function (response) {
+      console.log(response);
+      return response.data;
+    })
+    .then(function (a) {
+      cards.appendChild(cardYapici(a));
+    });
+};
+connection();
